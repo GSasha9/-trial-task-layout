@@ -333,11 +333,12 @@ margin-right: 3.2vw;
     
 
 .main--blub--item{
-    width: 24.5vw;
-    height: 7.5vw;
+    width: 23vw;
+    height: fit-content;
     background-color: var(--brown);
     border-radius: 10.21vw;
     cursor: pointer;
+    padding: 0.5vw;
 }
 
 .main--blub--item:hover{
@@ -431,16 +432,16 @@ margin-right: 3.2vw;
     position: relative;
     display: flex;
     gap: 0.5vw;
-    cursor: pointer;
     z-index: 20;
 }
 
-#footer--socialmedia--icons>svg {
+#footer--socialmedia--icons>a>svg {
     width: 1.63vw;
     height: 1.63vw;
+    cursor: pointer;
 }
 
-#footer--socialmedia--icons>svg:hover>g>path:first-of-type{
+#footer--socialmedia--icons>a:hover>svg>g>path:first-of-type{
     fill: url(#b);
     
 }
@@ -487,7 +488,7 @@ margin-right: 3.2vw;
     }
     
     .main--blub--item>p:last-of-type{
-        font-size: 0.575em;
+        font-size: 0.875em;
         font-weight: 200;
     }
 
@@ -841,8 +842,8 @@ margin-right: 3.2vw;
     }
 
     .main--blub--item {
-        width: 85.5vw;
-        height: 35.5vw;
+        width: 84.5vw;
+        height: fit-content;
         border-radius: 12.50vw;
     }
 
@@ -876,6 +877,7 @@ margin-right: 3.2vw;
         width: 1.25vw;
         margin-left: 1.8vw;
         margin-top: 19vw;
+        border-radius: 3.13vw;
     }
 
     #main--dot_light2{
@@ -934,7 +936,7 @@ margin-right: 3.2vw;
         font-size: 0.9em;
     }
 
-    #footer--socialmedia--icons>svg {
+    #footer--socialmedia--icons>a>svg {
         width: 9vw;
         height: 9vw;
     }

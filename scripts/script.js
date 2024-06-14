@@ -1,33 +1,50 @@
+
+//находим скроллбар
 let scrollbar = document.querySelector('#main--blub--container--scrollbar');
+//находим ползунок
 let scrollthumb = document.querySelector('#main--blub--container--scrollthumb');
-let container = document.querySelector('#main--blub--container--items');
+//находим блок, соержащий все статьи
+let allItems = document.querySelector('#main--blub--container--items');
+//находим контейнер, который содержит все вышеперечисленные элементы
+let container = document.querySelector('#main--blub--container');
 
-let containerHeight = window.getComputedStyle(container).height;
-
+//высота блока, содержащего все статьи
+let allItemsHeight = pixelsToVW(parseInt(window.getComputedStyle(allItems).height));
+//высота скроллбара
 let scrollbarHeight = window.getComputedStyle(scrollbar).height;
-            
+//высота ползунка            
 let scrollthumbHeight = window.getComputedStyle(scrollthumb).height;
-
+//паксимальная точка по оси У для ползунка: от высоты скроллбара отнимаем высоту ползунка
 let maxPointOfThumb = pixelsToVW(parseInt(scrollbarHeight)-parseInt(scrollthumbHeight));
 
-//значение подобрано для достижения желаемого поведения прокрутки
-let maxContainerScroll = 48.49;
+//если прокрутить все статьи до конца - определяется максимальная точка прокрутки контейнера, который содержит все статьи, отнимаем 4, чтобы добиться 100%
+let maxContainerScroll = pixelsToVW(parseInt(window.getComputedStyle(container).height))-4;
 
-container.addEventListener('wheel', onWheel);
+console.log(maxContainerScroll);
+
+
+
+
+allItems.addEventListener('wheel', onWheel);
+
 
 function onWheel(e){
     if(window.innerWidth < 770){
         onTouchMove(e);
     }
     else {
-        let proc = pixelsToVW(container.scrollTop)/maxContainerScroll*100;
-        console.log("верхняя точка контейнера прокрутки " + (pixelsToVW(container.scrollTop)));
+        //определяем процент прокрутки контейнера: делим текущее значение скроллтопа блока, 
+        //содержащего все статьи на высоту всего контейнера
+        let proc = (pixelsToVW(allItems.scrollTop)/maxContainerScroll)*100;
+        console.log("верхняя точка контейнера прокрутки " + (pixelsToVW(allItems.scrollTop)));
         console.log("процент контейнера " + proc);
+        //если положение ползунка по У больше его максимальной точки по Y - останавливаем
         if(scrollthumb.style.top >= maxPointOfThumb){
             return;
         }
-        if(pixelsToVW(container.scrollTop) == 67.86458333333333 || proc>100){
+        if(pixelsToVW(allItems.scrollTop) == maxContainerScroll || proc>100){
             scrollthumb.style.top = maxPointOfThumb + 'vw';
+            return;
         }
         else{
         scrollthumb.style.top = maxPointOfThumb*(proc/100) + 'vw';
@@ -47,8 +64,8 @@ window.addEventListener("keydown", function(e) {
 function onTouchMove(e) {
 
     maxPointOfThumb = parseInt(scrollbarHeight)-parseInt(scrollthumbHeight);
-    let proc = container.scrollTop / 400 * 100;
-    console.log("верхняя точка контейнера прокрутки " + container.scrollTop);
+    let proc = (allItems.scrollTop / maxContainerScroll) * 100;
+    console.log("верхняя точка контейнера прокрутки " + allItems.scrollTop);
     console.log("процент контейнера " + proc);
     
     // Проверяем, не достиг ли ползунок максимальной точки
@@ -56,7 +73,7 @@ function onTouchMove(e) {
         return;
     }
     // Устанавливаем положение ползунка
-    if (container.scrollTop == 887 || proc > 100) {
+    if (allItems.scrollTop == maxContainerScroll || proc > 100) {
         scrollthumb.style.top = maxPointOfThumb + 'px';
     } 
     else {
@@ -65,7 +82,35 @@ function onTouchMove(e) {
 }
     
 // Добавляем обработчик события касания
-container.addEventListener('touchmove', onTouchMove);
+allItems.addEventListener('touchmove', onTouchMove);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //функция для перевода пикс в vw
